@@ -37,17 +37,9 @@ class FlickrPhotosController < ApplicationController
 
   private
 
-<<<<<<< HEAD
-    photo = user.photo_urls.first
-    puts photo.inspect
-    puts photo
-    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
-    render :json => user.photo_urls.first
-=======
   def find_or_create_user
     @user = User.find_or_create_by_id(session[:user_id])
     session[:user_id] = @user.id
->>>>>>> 34a8a9b9314bf6cf90b84427c5bcaa10eae69e0c
   end
 end
