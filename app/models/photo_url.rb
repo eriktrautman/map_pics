@@ -8,6 +8,7 @@ class PhotoUrl < ActiveRecord::Base
   # flickr API Key
   API_KEY = '8eb26ba8751ffd4c9c3e4630bd265de8'
   # flickr Secret: e6fc05979fcd5c13
+
   class << self
     def get_photos(lat = '37.771258', lon = '-122.420654', page = 1)
       photos = JSON.parse(get_flickr_data(lat, lon, page))
