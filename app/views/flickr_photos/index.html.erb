@@ -34,6 +34,7 @@
             success:  function(data) { 
               //alert( "Successful AJAX!!! " + data.url);
               document.getElementById("headline_img").src = data.url;
+              document.getElementById("warnings").innerHTML = "Like em?";
             },
             error: function(data){
               //alert('failure' + data);
@@ -53,10 +54,52 @@
     <h3 id="warnings"></h3>
     <div id = "coords">Coodinates:</div>
     <div id="latitude">Map Center!</div>
-    <input id="clickMe" type="button" value="clickme" onclick="changeLat();" />
-    <input id="clickMe" type="button" value="clickme" onclick="changeLat();" />
-    <img id="headline_img" width="300px" src="http://www.dumpaday.com/wp-content/uploads/2012/12/gangnam-style-funny-dancing1.jpg" />
-    <div id="map_canvas" style="width:300px; height:300px"></div>
-    <button>
+        <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="row-fluid">
+            <div class="span6">
+              <h2>Image!</h2>
+              <img id="headline_img" width="300px" src="http://www.dumpaday.com/wp-content/uploads/2012/12/gangnam-style-funny-dancing1.jpg" />
+              <p><a class="btn" href="#">View details &raquo;</a></p>
+            </div><!--/span-->
+            <div class="span6">
+              <h2>Map!</h2>
+               <div id="map_canvas" style="width:300px; height:300px"></div>
+              <p><input id="prev" class="btn" type="button" value="Prev" onclick="changeLat();" /><input id="next" class="btn" type="button" value="Next" onclick="changeLat();" /></p>
+            </div><!--/span-->
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Trautman Sepassi Productions 2012</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
   </body>
 </html>
