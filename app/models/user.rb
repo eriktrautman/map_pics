@@ -12,8 +12,10 @@ class User < ActiveRecord::Base
   end
 
   def make_new_photos(lat, lon, page)
-    PhotoUrl.get_photos(lat, lon, page).each do |url|
-      photo_urls.create(url: url)
+    PhotoUrl.transaction do
+      PhotoUrl.get_photos(lat, lon, page).each do |url|
+        photo_urls.create(url: url)
+      end
     end
   end
 
