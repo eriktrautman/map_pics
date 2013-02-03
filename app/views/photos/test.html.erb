@@ -1,0 +1,12 @@
+<!-- test -->
+
+GEvent.addListener(map, "moveend", function() {
+	map.clearOverlays();
+	var center = map.getCenter();
+	var lat = center.lng()
+	var lng = center.lat()
+}
+
+document.getElementById("lat").innerHTML = lat;
+
+)
