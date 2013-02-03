@@ -9,9 +9,9 @@ function initialize() {
   };
   var map = new google.maps.Map(document.getElementById("map_canvas"),
       mapOptions);
-  ping_ajax();
+  ping_ajax(lat,lng);
 
-  function ping_ajax(){
+  function ping_ajax(lat,lng){
     jQuery.ajax({
       data: 'lat=' + lat + '&lng=' + lng,
       type: "GET",
@@ -26,20 +26,16 @@ function initialize() {
         //alert('failure' + data);
         document.getElementById("warnings").innerHTML = "No new images found!";
       },
-      complete: function(request, textStatus) { //for additional info
-        //alert(request.responseText);
-        //alert(textStatus);
-      }
     });
   }
 
   google.maps.event.addListener(map, 'dragend', function() {
     document.getElementById("warnings").innerHTML = "retrieving...";
-    center = document.getElementById("latitude").innerHTML = map.getCenter();
+    center = map.getCenter();
     lat = center.lat();
     lng = center.lng();
-    ping_ajax();
-
+    ping_ajax(lat, lng);
+    document.getElementById("warnings").innerHTML = "retrieving......";
   });
 }
 
@@ -50,7 +46,7 @@ function next_photo(){
     url: "/photos/random",
     success:  function(data) { 
       document.getElementById("headline_img").src = data.url;
-      document.getElementById("warnings").innerHTML = "Like em?";
+      document.getElementById("warnings").innerHTML = "";
     },
     error: function(data){
       document.getElementById("warnings").innerHTML = "No new images found!";
