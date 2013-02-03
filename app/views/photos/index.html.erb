@@ -25,11 +25,19 @@
           lat = center.lat();
           lng = center.lng();
           jQuery.ajax({
-            data: 'lat=' + lat + 'lng=' + lng,
+            data: 'lat=' + lat + '&lng=' + lng,
             type: "GET",
-            url: "/photos/newset",
-            success:  function(data) { 
-              alert( "Successful AJAX!!! " + msg );
+            dataType: "json",
+            url: "/photos/new_set",
+            success:  function() { 
+              alert( "Successful AJAX!!! ");
+            },
+            error: function(){
+              alert('failure');
+            },
+            complete: function(request, textStatus) { //for additional info
+              alert(request.responseText);
+              alert(textStatus);
             }
           });
         });
