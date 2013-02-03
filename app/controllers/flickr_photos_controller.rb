@@ -1,4 +1,7 @@
 class FlickrPhotosController < ApplicationController
+  def index
+  end
+
   def next_photo
   end
 
@@ -6,16 +9,18 @@ class FlickrPhotosController < ApplicationController
   end
 
   def new_set
-    lat, lon = params[:lat], params[:lng]
+    lat, lon = params[:lat].to_i, params[:lng].to_i
     session[:page], session[:img_no] = nil, nil
     
-    if session[:user_id]
+    begin
       user = User.find(session[:user_id])
-    else
+    rescue
       user = User.create
       session[:user_id] = user.id
     end
 
     user.new_photo_set(lat, lon)
+
+    render :json => user.photo_urls.first
   end
 end

@@ -2,8 +2,11 @@ class User < ActiveRecord::Base
   has_many :photo_urls
 
   def new_photo_set(lat, lon)
-    # Delete all but last 10 photos
-    photo_urls[0..-10]
+    photo_urls.destroy_all
+
+    PhotoUrl.get_photos(lat, lon).each do |url|
+      photo_urls.create(url: url)
+    end
   end
 
   def next_photo_url(photo_num)
