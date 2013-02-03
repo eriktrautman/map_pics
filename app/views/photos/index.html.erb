@@ -20,8 +20,18 @@
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
 
-        google.maps.event.addListener(map, 'center_changed', function() {
-          document.getElementById("latitude").innerHTML = map.getCenter();
+        google.maps.event.addListener(map, 'dragend', function() {
+          center = document.getElementById("latitude").innerHTML = map.getCenter();
+          lat = center.lat();
+          lng = center.lng();
+          jQuery.ajax({
+            data: 'lat=' + lat + 'lng=' + lng,
+            type: "GET",
+            url: "/photos/newset",
+            success:  function(data) { 
+              alert( "Successful AJAX!!! " + msg );
+            }
+          });
         });
       }
 
