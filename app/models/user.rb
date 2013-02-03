@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   def make_new_photos(lat, lon, page)
     PhotoUrl.transaction do
-      PhotoUrl.get_photos(lat, lon, page).each do |url|
+      PhotoUrl.get_photos(lat, lon, page).shuffle.take(50).each do |url|
         photo_urls.create(url: url)
       end
     end
