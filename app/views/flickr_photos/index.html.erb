@@ -12,20 +12,18 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+        lat = 37.775;
+        lng = -122.437;
         var mapOptions = {
-          center: new google.maps.LatLng(37.775, -122.437),
+          center: new google.maps.LatLng(lat, lng),
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
+        ping_ajax();
 
-        google.maps.event.addListener(map, 'dragend', function() {
-          document.getElementById("warnings").innerHTML = "retrieving...";
-          center = document.getElementById("latitude").innerHTML = map.getCenter();
-          lat = center.lat();
-          lng = center.lng();
-
+        function ping_ajax(){
           jQuery.ajax({
             data: 'lat=' + lat + '&lng=' + lng,
             type: "GET",
@@ -45,6 +43,30 @@
               //alert(textStatus);
             }
           });
+        }
+
+        google.maps.event.addListener(map, 'dragend', function() {
+          document.getElementById("warnings").innerHTML = "retrieving...";
+          center = document.getElementById("latitude").innerHTML = map.getCenter();
+          lat = center.lat();
+          lng = center.lng();
+          ping_ajax();
+
+        });
+      }
+
+      function next_photo(){
+        jQuery.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "/photos/random",
+          success:  function(data) { 
+            document.getElementById("headline_img").src = data.url;
+            document.getElementById("warnings").innerHTML = "Like em?";
+          },
+          error: function(data){
+            document.getElementById("warnings").innerHTML = "No new images found!";
+          }
         });
       }
 
@@ -83,12 +105,11 @@
             <div class="span6">
               <h2>Image!</h2>
               <img id="headline_img" width="300px" src="http://www.dumpaday.com/wp-content/uploads/2012/12/gangnam-style-funny-dancing1.jpg" />
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+              <p><input id="next" class="btn" type="button" value="Next" onclick="next_photo();" /></p>
             </div><!--/span-->
             <div class="span6">
               <h2>Map!</h2>
-               <div id="map_canvas" style="width:300px; height:300px"></div>
-              <p><input id="prev" class="btn" type="button" value="Prev" onclick="changeLat();" /><input id="next" class="btn" type="button" value="Next" onclick="changeLat();" /></p>
+              <div id="map_canvas" style="width:300px; height:300px"></div>
             </div><!--/span-->
           </div><!--/row-->
         </div><!--/span-->
