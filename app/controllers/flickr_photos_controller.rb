@@ -21,6 +21,11 @@ class FlickrPhotosController < ApplicationController
 
     user.new_photo_set(lat, lon)
 
+    photo = user.photo_urls.first
+    puts photo.inspect
+    puts photo
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
     render :json => user.photo_urls.first
   end
 end
