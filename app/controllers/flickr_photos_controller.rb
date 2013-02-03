@@ -37,6 +37,7 @@ class FlickrPhotosController < ApplicationController
 
   private
 
+
   def find_or_create_user
     @user = User.find_or_create_by_id(session[:user_id])
     session[:user_id] = @user.id

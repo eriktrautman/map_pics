@@ -13,31 +13,35 @@
     <script type="text/javascript">
       function initialize() {
         var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
+          center: new google.maps.LatLng(37.775, -122.437),
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
 
         google.maps.event.addListener(map, 'dragend', function() {
+          document.getElementById("warnings").innerHTML = "retrieving...";
           center = document.getElementById("latitude").innerHTML = map.getCenter();
           lat = center.lat();
           lng = center.lng();
+
           jQuery.ajax({
             data: 'lat=' + lat + '&lng=' + lng,
             type: "GET",
             dataType: "json",
             url: "/photos/new_set",
-            success:  function() { 
-              alert( "Successful AJAX!!! ");
+            success:  function(data) { 
+              //alert( "Successful AJAX!!! " + data.url);
+              document.getElementById("headline_img").src = data.url;
             },
-            error: function(){
-              alert('failure');
+            error: function(data){
+              //alert('failure' + data);
+              document.getElementById("warnings").innerHTML = "No new images found!";
             },
             complete: function(request, textStatus) { //for additional info
-              alert(request.responseText);
-              alert(textStatus);
+              //alert(request.responseText);
+              //alert(textStatus);
             }
           });
         });
@@ -46,10 +50,13 @@
     </script>
   </head>
   <body onload="initialize()">
+    <h3 id="warnings"></h3>
     <div id = "coords">Coodinates:</div>
     <div id="latitude">Map Center!</div>
     <input id="clickMe" type="button" value="clickme" onclick="changeLat();" />
-    <div id="map_canvas" style="width:100%; height:100%"></div>
+    <input id="clickMe" type="button" value="clickme" onclick="changeLat();" />
+    <img id="headline_img" width="300px" src="http://www.dumpaday.com/wp-content/uploads/2012/12/gangnam-style-funny-dancing1.jpg" />
+    <div id="map_canvas" style="width:300px; height:300px"></div>
     <button>
   </body>
 </html>
