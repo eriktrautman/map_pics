@@ -1,5 +1,7 @@
 MapPics::Application.routes.draw do
-  get "photos/index"
+  get "photos/new_set" => 'flickr_photos#new_set'
+  get "photos/next" => 'flickr_photos#next_photo'
+  get "photos/previous" => 'flickr_photos#previous_photo'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
